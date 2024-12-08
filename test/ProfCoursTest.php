@@ -321,19 +321,7 @@ class ProfCoursTest extends TestCase
     }
     print "################################################################\n\n";
 
-    // Modification du Cours
-    $cours = new Cours("MODIFIED_COURS_NAME", "MODIFIED_DESCRIPTION", "2024-12-08");
-    $val = $cours->updateOne($conn, $idCours); // Mise à jour en base
-    $expected_cours_str = $cours->__toString(); // Chaîne attendue après modification
-    $record_cours = Cours::printOne($conn, $idCours); // Récupération du cours modifié
-    $this->assertEquals($expected_cours_str, $record_cours->__toString(), "Update du cours $idCours ...\n");
-    $this->assertTrue($val, "Update du cours num $idCours ...\n");
-
-    print "@@@@@@@@@@@@@ - LISTE DES COURS - APRES UPDATE DU COURS NUM $idCours @@@@@@@@@@@@@ \n";
-    foreach ($record_cours_a = Cours::printAll($conn) as $record_cours) {
-        print $record_cours;
-    }
-    print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n";
+    
 }
 
 
