@@ -298,7 +298,7 @@ class ProfCoursTest extends TestCase
      * 2. UPDATE cours num 9
      * @order 5
      */
-    public function testUpdateOne()
+public function testUpdateOne()
 {
     print __METHOD__ . "\n";
     $conn = $this->getConnection();
@@ -307,22 +307,47 @@ class ProfCoursTest extends TestCase
     $idProf = 10;
     $idCours = 9;
 
-    // Modification du Prof
-    $prof = new Prof("MODIFIED_NAME", "MODIFIED_FIRSTNAME", "01/01/1980", "Modified_City");
-    $val = $prof->updateOne($conn, $idProf); // Mise à jour en base
-    $expected_prof_str = $prof->__toString(); // Chaîne attendue après modification
-    $record_prof = Prof::printOne($conn, $idProf); // Récupération du professeur modifié
+    // ============================
+    // Test de la modification du Prof
+    // ============================
+    $prof = new Prof($this->nom, $this->prenom, $this->date, $this->lieu);
+    $val = $prof->updateOne($conn, $idProf);
+    $expected_prof_str = $prof->__toString();
+    $record_prof = Prof::printOne($conn, $idProf);
+
     $this->assertEquals($expected_prof_str, $record_prof->__toString(), "Update du prof $idProf ...\n");
     $this->assertTrue($val, "Update du prof num $idProf ...\n");
 
+    // ============================
+    // Test de la modification du Cours
+    // ============================
+    $cours = new Cours($this->titre, $this->description, $this->dateDebut, $this->dateFin);
+    $val_cours = $cours->updateOne($conn, $idCours);
+    $expected_cours_str = $cours->__toString();
+    $record_cours = Cours::printOne($conn, $idCours);
+
+    $this->assertEquals($expected_cours_str, $record_cours->__toString(), "Update du cours $idCours ...\n");
+    $this->assertTrue($val_cours, "Update du cours num $idCours ...\n");
+
+    // ============================
+    // Affichage des Profs après Update
+    // ============================
     print "########## - LISTE DES PROFS - APRES UPDATE DU PROF NUM $idProf ########## \n";
     foreach ($record_prof_a = Prof::printAll($conn) as $record_prof) {
         print $record_prof;
     }
     print "################################################################\n\n";
 
-    
+    // ============================
+    // Affichage des Cours après Update
+    // ============================
+    print "@@@@@@@@@@@@@ - LISTE DES COURS - APRES UPDATE DU COURS NUM $idCours @@@@@@@@@@@@@ \n";
+    foreach ($record_cours_a = Cours::printAll($conn) as $record_cours) {
+        print $record_cours;
+    }
+    print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n\n";
 }
+
 
 
     /**
