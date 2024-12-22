@@ -321,13 +321,13 @@ public function testUpdateOne()
     // ============================
     // Test de la modification du Cours
     // ============================
-    $cours = new Cours($this->titre, $this->description, $this->dateDebut, $this->dateFin);
-    $val_cours = $cours->updateOne($conn, $idCours);
+    // Cours
+    $cours = new Cours($this->intitule, $this->duree, 9);
+    $val = $cours->updateOne($conn, $idCours);
     $expected_cours_str = $cours->__toString();
     $record_cours = Cours::printOne($conn, $idCours);
-
     $this->assertEquals($expected_cours_str, $record_cours->__toString(), "Update du cours $idCours ...\n");
-    $this->assertTrue($val_cours, "Update du cours num $idCours ...\n");
+    $this->assertTrue($val, "Update du cours num $idCours ...\n");
 
     // ============================
     // Affichage des Profs après Update
